@@ -1,7 +1,7 @@
 {
   "title": "Signals and Systems Fourier Practice Question Bank",
-  "description": "JSON question bank for a pre-exam practice website. Removed the Sampling Theorem / AM Radio question and the modulation block-diagram question as requested. Includes final answers and complete solution steps; proof questions include the full derivation process.",
-  "version": "2.0",
+  "description": "JSON question bank for a pre-exam practice website. Removed the Sampling Theorem / AM Radio question and the modulation block-diagram question as requested. Includes final answers and complete solution steps; proof questions include the full derivation process. Corrected q012 to match the teacher/class solution using the effective duration of the rectangular pulse x(t), giving B_omega >= sqrt(3)/(2T).",
+  "version": "2.1-corrected",
   "course_scope": [
     "L3 Fourier Transform / Fourier Representations",
     "L2 latter part / LTI system frequency response where applicable"
@@ -726,56 +726,65 @@
     },
     {
       "id": "q012",
-      "title": "Uncertainty principle and effective bandwidth of convolution",
+      "title": "Uncertainty principle and effective bandwidth bound",
       "type": "time_bandwidth",
       "chapter": "3",
       "sections": [
         "3.10",
         "3.17"
       ],
-      "difficulty": "hard",
+      "difficulty": "medium",
       "prompt": "Let x(t)=1 for |t|<T and 0 otherwise. Use the uncertainty principle to bound the effective bandwidth of x(t)*x(t), where * denotes convolution.",
       "latex": {
         "main": "x(t)=\\begin{cases}1,& |t|<T\\\\0,& \\text{otherwise}\\end{cases},\\quad \\text{bound the effective bandwidth of }x(t)*x(t)"
       },
       "final_answer": {
-        "main": "B_\\omega\\ge \\frac{\\sqrt{10}}{4T}\\quad \\text{for }y(t)=x(t)*x(t)\\text{ using }T_d=\\sqrt{\\frac25}T"
+        "main": "T_d=\frac{T}{\\sqrt{3}},\\quad B_\\omega\\ge \frac{\\sqrt{3}}{2T}"
       },
       "solution_steps": [
         {
           "step": 1,
-          "text": "The convolution of two width-2T rectangular pulses is a triangle: y(t)=x(t)*x(t)=2T-|t| for |t|<2T, and 0 otherwise."
+          "text": "Use the effective duration definition for the given rectangular signal x(t): T_d=\\left(\frac{\\int_{-\\infty}^{\\infty}t^2|x(t)|^2dt}{\\int_{-\\infty}^{\\infty}|x(t)|^2dt}\right)^{1/2}."
         },
         {
           "step": 2,
-          "text": "Use effective duration T_d=[∫t²|y(t)|²dt / ∫|y(t)|²dt]^{1/2}."
+          "text": "Since x(t)=1 for |t|<T and 0 otherwise, |x(t)|^2=1 only on -T<t<T. Therefore T_d=\\left(\frac{\\int_{-T}^{T}t^2dt}{\\int_{-T}^{T}dt}\right)^{1/2}."
         },
         {
           "step": 3,
-          "text": "Because y(t) is even, denominator D=2∫_0^{2T}(2T-t)^2dt=16T^3/3."
+          "text": "Compute the denominator: \\int_{-T}^{T}dt=2T."
         },
         {
           "step": 4,
-          "text": "Numerator N=2∫_0^{2T}t^2(2T-t)^2dt=32T^5/15."
+          "text": "Compute the numerator: \\int_{-T}^{T}t^2dt=\\left[\frac{t^3}{3}\right]_{-T}^{T}=\frac{T^3}{3}-\frac{(-T)^3}{3}=\frac{2T^3}{3}."
         },
         {
           "step": 5,
-          "text": "Thus T_d^2=N/D=(32T^5/15)/(16T^3/3)=2T^2/5, so T_d=√(2/5)T."
+          "text": "Thus T_d=\\left(\frac{\frac{2T^3}{3}}{2T}\right)^{1/2}=\\left(\frac{T^2}{3}\right)^{1/2}=\frac{T}{\\sqrt{3}}."
         },
         {
           "step": 6,
-          "text": "Uncertainty principle: T_dB_ω≥1/2, hence B_ω≥1/(2T_d)=√10/(4T)."
+          "text": "Use the uncertainty principle: T_dB_\\omega\\ge \frac12."
+        },
+        {
+          "step": 7,
+          "text": "Therefore B_\\omega\\ge \frac{1}{2T_d}=\frac{1}{2(T/\\sqrt3)}=\frac{\\sqrt3}{2T}."
+        },
+        {
+          "step": 8,
+          "text": "Class-solution note: although the prompt mentions x(t)*x(t), the provided answer uses the effective duration of the original rectangular pulse x(t). This version follows that expected classroom solution."
         }
       ],
       "key_formulas": [
-        "T_d=\\left(\\frac{\\int t^2|x(t)|^2dt}{\\int |x(t)|^2dt}\\right)^{1/2}",
-        "T_dB_\\omega\\ge \\frac12",
-        "\\text{rect}*\\text{rect}=\\text{triangle}"
+        "T_d=\\left(\frac{\\int_{-\\infty}^{\\infty} t^2|x(t)|^2dt}{\\int_{-\\infty}^{\\infty}|x(t)|^2dt}\right)^{1/2}",
+        "T_dB_\\omega\\ge \frac12",
+        "B_\\omega\\ge \frac{1}{2T_d}"
       ],
       "tags": [
         "uncertainty principle",
         "effective bandwidth",
-        "convolution"
+        "time-bandwidth product",
+        "teacher solution"
       ]
     },
     {
