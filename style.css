@@ -534,6 +534,82 @@ body {
   margin-bottom: 0;
 }
 
+/* Solution steps */
+.solution-steps {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.step-item {
+  display: flex;
+  gap: 10px;
+  padding: 10px 14px;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  font-size: 0.9rem;
+  line-height: 1.7;
+}
+
+.step-number {
+  flex-shrink: 0;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--text);
+  color: #fff;
+  border-radius: 50%;
+  font-size: 0.72rem;
+  font-weight: 700;
+  margin-top: 2px;
+}
+
+.step-text {
+  color: var(--text);
+  flex: 1;
+  overflow-x: auto;
+}
+
+.step-part-label {
+  display: inline-block;
+  margin-right: 6px;
+  padding: 1px 6px;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-dark);
+  color: var(--text-secondary);
+  border-radius: 3px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+/* Formulas */
+.solution-formulas {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.formula-item {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--text-secondary);
+  border-radius: var(--radius-sm);
+  padding: 10px 14px;
+  overflow-x: auto;
+  font-size: 0.95rem;
+}
+
+/* Empty hint */
+.empty-hint {
+  color: var(--text-muted);
+  font-size: 0.88rem;
+  padding: 8px 0;
+}
+
 .q-next { margin-top: 8px; }
 
 /* ============================================

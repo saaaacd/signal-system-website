@@ -269,6 +269,58 @@ function revealAnswer() {
     }
   }
 
+  // Solution steps
+  const stepsContainer = document.getElementById('solSteps');
+  stepsContainer.innerHTML = '';
+  if (Array.isArray(q.solution_steps) && q.solution_steps.length > 0) {
+    q.solution_steps.forEach(s => {
+      const item = document.createElement('div');
+      item.className = 'step-item';
+
+      const num = document.createElement('div');
+      num.className = 'step-number';
+      num.textContent = s.step || '';
+
+      const textDiv = document.createElement('div');
+      textDiv.className = 'step-text';
+
+      if (s.part) {
+        const partLabel = document.createElement('span');
+        partLabel.className = 'step-part-label';
+        partLabel.textContent = `Part ${s.part}`;
+        textDiv.appendChild(partLabel);
+        textDiv.appendChild(document.createTextNode(' '));
+      }
+
+      const rawText = typeof s === 'string' ? s : (s.text || '');
+      const processedText = processStepText(rawText);
+      const textSpan = document.createElement('span');
+      textSpan.textContent = processedText;
+      textDiv.appendChild(textSpan);
+
+      item.appendChild(num);
+      item.appendChild(textDiv);
+      stepsContainer.appendChild(item);
+    });
+  } else {
+    stepsContainer.innerHTML = '<div class="empty-hint">無</div>';
+  }
+
+  // Formulas
+  const formulasContainer = document.getElementById('solFormulas');
+  formulasContainer.innerHTML = '';
+  const formulas = q.key_formulas;
+  if (Array.isArray(formulas) && formulas.length > 0) {
+    formulas.forEach(f => {
+      const item = document.createElement('div');
+      item.className = 'formula-item';
+      item.textContent = `$$${f}$$`;
+      formulasContainer.appendChild(item);
+    });
+  } else {
+    formulasContainer.innerHTML = '<div class="empty-hint">無</div>';
+  }
+
   document.getElementById('solutionSection').classList.remove('hidden');
 
   requestAnimationFrame(() => renderMathInPage());
