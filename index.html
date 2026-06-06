@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>信號與系統考前刷題</title>
+  <meta name="description" content="信號與系統考前刷題網站，隨機出題、作答紀錄、LaTeX 公式顯示" />
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Noto+Sans+TC:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+  <!-- KaTeX CSS & JS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.css" />
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/contrib/auto-render.min.js"></script>
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!-- ===== NAV ===== -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-inner">
+      <a href="#" class="nav-brand" onclick="showPage('home')">
+        <span class="brand-icon">⚡</span>
+        <span class="brand-text">信號與系統刷題</span>
+      </a>
+      <div class="nav-links">
+        <button class="nav-btn active" data-page="home" onclick="showPage('home')">首頁</button>
+        <button class="nav-btn" data-page="quiz" onclick="showPage('quiz')">刷題</button>
+        <button class="nav-btn" data-page="history" onclick="showPage('history')">紀錄</button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ===== HOME PAGE ===== -->
+  <main class="page active" id="page-home">
+    <section class="hero">
+      <div class="hero-glow"></div>
+      <h1 class="hero-title">信號與系統<br /><span class="gradient-text">考前刷題</span></h1>
+      <p class="hero-subtitle">Fourier Transform · LTI Systems · DTFT</p>
+      <div class="hero-badge" id="totalBadge">題庫：<strong>0</strong> 題</div>
+    </section>
+
+    <!-- Stats Cards -->
+    <section class="stats-grid" id="statsGrid">
+      <div class="stat-card">
+        <div class="stat-icon stat-icon-total">📝</div>
+        <div class="stat-value" id="statAnswered">0</div>
+        <div class="stat-label">已作答</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon stat-icon-correct">✅</div>
+        <div class="stat-value" id="statCorrect">0</div>
+        <div class="stat-label">答對</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon stat-icon-wrong">❌</div>
+        <div class="stat-value" id="statWrong">0</div>
+        <div class="stat-label">答錯</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon stat-icon-rate">📊</div>
+        <div class="stat-value" id="statRate">0%</div>
+        <div class="stat-label">正確率</div>
+      </div>
+    </section>
+
+    <!-- Practice Mode Selection -->
+    <section class="mode-section">
+      <h2 class="section-title">選擇練習模式</h2>
+      <div class="mode-grid">
+        <button class="mode-card" onclick="startQuiz('all')">
+          <div class="mode-icon">🎲</div>
+          <div class="mode-title">隨機全部</div>
+          <div class="mode-desc">從所有題目中隨機出題</div>
+        </button>
+        <button class="mode-card mode-card-wrong" onclick="startQuiz('wrong')">
+          <div class="mode-icon">🔁</div>
+          <div class="mode-title">答錯重練</div>
+          <div class="mode-desc">只刷答錯過的題目</div>
+        </button>
+        <button class="mode-card" onclick="startQuiz('chapter')">
+          <div class="mode-icon">📖</div>
+          <div class="mode-title">依章節刷題</div>
+          <div class="mode-desc">選擇特定章節練習</div>
+        </button>
+        <button class="mode-card" onclick="startQuiz('type')">
+          <div class="mode-icon">🏷️</div>
+          <div class="mode-title">依題型刷題</div>
+          <div class="mode-desc">選擇特定題型練習</div>
+        </button>
+      </div>
+    </section>
+
+    <!-- Chapter / Type Selector (hidden by default) -->
+    <section class="selector-section hidden" id="selectorSection">
+      <h2 class="section-title" id="selectorTitle">選擇章節</h2>
+      <div class="selector-grid" id="selectorGrid"></div>
+    </section>
+
+    <!-- Quick Actions -->
+    <section class="actions-section">
+      <button class="action-btn action-history" onclick="showPage('history')">📋 查看作答紀錄</button>
+      <button class="action-btn action-reset" onclick="confirmReset()">🗑️ 重置全部紀錄</button>
+    </section>
+  </main>
+
+  <!-- ===== QUIZ PAGE ===== -->
+  <main class="page" id="page-quiz">
+    <div class="quiz-container">
+      <!-- Question Card -->
+      <div class="question-card" id="questionCard">
+        <div class="q-header">
+          <div class="q-meta">
+            <span class="q-badge q-id" id="qId">q001</span>
+            <span class="q-badge q-chapter" id="qChapter">Chapter 3</span>
+            <span class="q-badge q-type" id="qType">inverse_transform</span>
+            <span class="q-badge q-difficulty" id="qDifficulty">hard</span>
+          </div>
+          <div class="q-progress" id="qProgress"></div>
+        </div>
+
+
+
+        <div class="q-prompt" id="qPrompt"></div>
+
+        <!-- LaTeX display area -->
+        <div class="q-latex" id="qLatex"></div>
+
+
+
+        <!-- Action Buttons -->
+        <div class="q-actions">
+          <button class="btn btn-reveal" id="btnReveal" onclick="revealAnswer()">
+            <span>👁️</span> 查看答案
+          </button>
+          <button class="btn btn-correct" id="btnCorrect" onclick="markAnswer(true)" disabled>
+            <span>✅</span> 我答對了
+          </button>
+          <button class="btn btn-wrong" id="btnWrong" onclick="markAnswer(false)" disabled>
+            <span>❌</span> 我答錯了
+          </button>
+        </div>
+
+        <!-- Solution (hidden initially) -->
+        <div class="solution-section hidden" id="solutionSection">
+          <div class="solution-block">
+            <h3 class="solution-heading">最終答案</h3>
+            <div class="solution-answer" id="solAnswer"></div>
+          </div>
+        </div>
+
+        <!-- Next Button -->
+        <div class="q-next hidden" id="nextSection">
+          <button class="btn btn-next" onclick="nextQuestion()">
+            下一題 →
+          </button>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- ===== HISTORY PAGE ===== -->
+  <main class="page" id="page-history">
+    <div class="history-container">
+      <h1 class="history-title">📋 作答紀錄</h1>
+
+      <!-- History Stats -->
+      <div class="history-stats" id="historyStats">
+        <div class="h-stat">
+          <div class="h-stat-value" id="hTotal">0</div>
+          <div class="h-stat-label">總作答</div>
+        </div>
+        <div class="h-stat h-stat-correct">
+          <div class="h-stat-value" id="hCorrect">0</div>
+          <div class="h-stat-label">答對</div>
+        </div>
+        <div class="h-stat h-stat-wrong">
+          <div class="h-stat-value" id="hWrong">0</div>
+          <div class="h-stat-label">答錯</div>
+        </div>
+        <div class="h-stat">
+          <div class="h-stat-value" id="hRate">0%</div>
+          <div class="h-stat-label">正確率</div>
+        </div>
+      </div>
+
+      <!-- Filters -->
+      <div class="history-filters">
+        <select id="filterChapter" class="filter-select" onchange="renderHistory()">
+          <option value="">全部章節</option>
+        </select>
+        <select id="filterResult" class="filter-select" onchange="renderHistory()">
+          <option value="">全部結果</option>
+          <option value="correct">✅ 答對</option>
+          <option value="wrong">❌ 答錯</option>
+        </select>
+        <button class="btn btn-clear-history" onclick="confirmReset()">🗑️ 清除全部</button>
+      </div>
+
+      <!-- History Table -->
+      <div class="history-table-wrapper">
+        <table class="history-table" id="historyTable">
+          <thead>
+            <tr>
+              <th>時間</th>
+              <th>題號</th>
+              <th>題目</th>
+              <th>章節</th>
+              <th>題型</th>
+              <th>結果</th>
+            </tr>
+          </thead>
+          <tbody id="historyBody"></tbody>
+        </table>
+        <div class="empty-state hidden" id="emptyHistory">
+          <div class="empty-icon">📭</div>
+          <p>還沒有作答紀錄，快去刷題吧！</p>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- ===== TOAST ===== -->
+  <div class="toast hidden" id="toast"></div>
+
+  <!-- ===== MODAL ===== -->
+  <div class="modal-overlay hidden" id="modalOverlay">
+    <div class="modal">
+      <div class="modal-icon">⚠️</div>
+      <h3 class="modal-title" id="modalTitle">確認重置</h3>
+      <p class="modal-message" id="modalMessage">確定要清除所有作答紀錄嗎？此操作無法復原。</p>
+      <div class="modal-actions">
+        <button class="btn btn-cancel" onclick="closeModal()">取消</button>
+        <button class="btn btn-danger" id="modalConfirm" onclick="resetRecords()">確認重置</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

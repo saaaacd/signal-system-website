@@ -1,0 +1,868 @@
+{
+  "title": "Signals and Systems Fourier Practice Question Bank",
+  "description": "JSON question bank for a pre-exam practice website. Removed the Sampling Theorem / AM Radio question and the modulation block-diagram question as requested. Includes final answers and complete solution steps; proof questions include the full derivation process.",
+  "version": "2.0",
+  "course_scope": [
+    "L3 Fourier Transform / Fourier Representations",
+    "L2 latter part / LTI system frequency response where applicable"
+  ],
+  "schema": {
+    "id": "unique question id",
+    "title": "short title",
+    "type": "question category",
+    "chapter": "main chapter",
+    "sections": "related textbook sections",
+    "difficulty": "easy/medium/hard",
+    "prompt": "original English prompt",
+    "latex": "math expressions for rendering",
+    "final_answer": "final answer(s) in LaTeX",
+    "solution_steps": "ordered explanation steps; proof questions include full process",
+    "key_formulas": "formulas used",
+    "tags": "search/filter tags"
+  },
+  "questions": [
+    {
+      "id": "q001",
+      "title": "Inverse FT and inverse DTFT using properties",
+      "type": "inverse_transform",
+      "chapter": "3",
+      "sections": [
+        "3.6",
+        "3.7",
+        "3.11",
+        "3.12",
+        "3.13",
+        "3.15"
+      ],
+      "difficulty": "hard",
+      "prompt": "(a) Using multiple properties to find an Inverse FT. Find x(t) if X(jω)=j d/dω { e^{j2ω}/(1+j(ω/3)) }.\n(b) Find the inverse DTFT of X(e^{jΩ})=(-5/6 e^{-jΩ}+5)/(1+1/6 e^{-jΩ}-1/6 e^{-j2Ω}).",
+      "latex": {
+        "a": "X(j\\omega)=j\\frac{d}{d\\omega}\\left\\{\\frac{e^{j2\\omega}}{1+j(\\omega/3)}\\right\\}",
+        "b": "X(e^{j\\Omega})=\\frac{-\\frac56 e^{-j\\Omega}+5}{1+\\frac16 e^{-j\\Omega}-\\frac16 e^{-j2\\Omega}}"
+      },
+      "final_answer": {
+        "a": "x(t)=3t e^{-3(t+2)}u(t+2)",
+        "b": "x[n]=\\left(\\frac13\\right)^n u[n]+4\\left(-\\frac12\\right)^n u[n]"
+      },
+      "solution_steps": [
+        {
+          "part": "a",
+          "step": 1,
+          "text": "Let s(t)=e^{-t}u(t), so S(jω)=1/(1+jω)."
+        },
+        {
+          "part": "a",
+          "step": 2,
+          "text": "1/(1+j(ω/3)) = S(jω/3). By scaling, S(jω/3) ↔ 3s(3t)=3e^{-3t}u(t)."
+        },
+        {
+          "part": "a",
+          "step": 3,
+          "text": "Multiplying by e^{j2ω}=e^{-jω(-2)} shifts time by +2 in the argument: e^{j2ω}S(jω/3) ↔ 3e^{-3(t+2)}u(t+2)."
+        },
+        {
+          "part": "a",
+          "step": 4,
+          "text": "The outer factor j d/dω in frequency corresponds to multiplying by t in time."
+        },
+        {
+          "part": "a",
+          "step": 5,
+          "text": "Therefore x(t)=3t e^{-3(t+2)}u(t+2)."
+        },
+        {
+          "part": "b",
+          "step": 1,
+          "text": "Set q=e^{-jΩ}. Then X=(5-(5/6)q)/(1+(1/6)q-(1/6)q^2)."
+        },
+        {
+          "part": "b",
+          "step": 2,
+          "text": "Factor the denominator: 1+(1/6)q-(1/6)q^2=(1-(1/3)q)(1+(1/2)q)."
+        },
+        {
+          "part": "b",
+          "step": 3,
+          "text": "Use partial fractions: X=A/(1-(1/3)q)+B/(1+(1/2)q)."
+        },
+        {
+          "part": "b",
+          "step": 4,
+          "text": "Compare coefficients: A+B=5 and (1/2)A-(1/3)B=-5/6. Thus A=1, B=4."
+        },
+        {
+          "part": "b",
+          "step": 5,
+          "text": "So X=1/(1-(1/3)e^{-jΩ})+4/(1-(-1/2)e^{-jΩ})."
+        },
+        {
+          "part": "b",
+          "step": 6,
+          "text": "Use a^n u[n] ↔ 1/(1-ae^{-jΩ})."
+        }
+      ],
+      "key_formulas": [
+        "e^{-at}u(t)\\leftrightarrow \\frac1{a+j\\omega}",
+        "X(j\\omega/a)\\leftrightarrow |a|x(at)",
+        "e^{-j\\omega t_0}X(j\\omega)\\leftrightarrow x(t-t_0)",
+        "tx(t)\\leftrightarrow j\\frac{d}{d\\omega}X(j\\omega)",
+        "a^n u[n]\\leftrightarrow \\frac1{1-ae^{-j\\Omega}}"
+      ],
+      "tags": [
+        "FT",
+        "DTFT",
+        "time shift",
+        "scaling",
+        "partial fractions"
+      ]
+    },
+    {
+      "id": "q002",
+      "title": "LTI frequency response and impulse response",
+      "type": "system_response",
+      "chapter": "2/3",
+      "sections": [
+        "LTI systems",
+        "3.6",
+        "3.7",
+        "3.13"
+      ],
+      "difficulty": "medium",
+      "prompt": "(a) The output of an LTI system in response to x(t)=e^{-2t}u(t) is y(t)=e^{-t}u(t). Find the frequency response and impulse response.\n(b) Find the frequency response and impulse response of the discrete-time system 20y[n]-9y[n-1]+y[n-2]=100x[n]-23x[n-1].",
+      "latex": {
+        "a": "x(t)=e^{-2t}u(t),\\quad y(t)=e^{-t}u(t)",
+        "b": "20y[n]-9y[n-1]+y[n-2]=100x[n]-23x[n-1]"
+      },
+      "final_answer": {
+        "a": "H(j\\omega)=\\frac{j\\omega+2}{j\\omega+1},\\quad h(t)=\\delta(t)+e^{-t}u(t)",
+        "b": "H(e^{j\\Omega})=\\frac{100-23e^{-j\\Omega}}{20-9e^{-j\\Omega}+e^{-j2\\Omega}}=\\frac{2}{1-\\frac14e^{-j\\Omega}}+\\frac{3}{1-\\frac15e^{-j\\Omega}},\\quad h[n]=2(\\frac14)^n u[n]+3(\\frac15)^n u[n]"
+      },
+      "solution_steps": [
+        {
+          "part": "a",
+          "step": 1,
+          "text": "Transform input and output: X(jω)=1/(2+jω), Y(jω)=1/(1+jω)."
+        },
+        {
+          "part": "a",
+          "step": 2,
+          "text": "For an LTI system, Y=HX, so H=Y/X=(jω+2)/(jω+1)."
+        },
+        {
+          "part": "a",
+          "step": 3,
+          "text": "Rewrite H=(jω+2)/(jω+1)=1+1/(jω+1)."
+        },
+        {
+          "part": "a",
+          "step": 4,
+          "text": "Use 1 ↔ δ(t) and 1/(jω+1) ↔ e^{-t}u(t)."
+        },
+        {
+          "part": "b",
+          "step": 1,
+          "text": "Apply DTFT to the difference equation: y[n-k] ↔ e^{-jΩk}Y(e^{jΩ})."
+        },
+        {
+          "part": "b",
+          "step": 2,
+          "text": "Get (20-9e^{-jΩ}+e^{-j2Ω})Y=(100-23e^{-jΩ})X."
+        },
+        {
+          "part": "b",
+          "step": 3,
+          "text": "Therefore H=Y/X=(100-23e^{-jΩ})/(20-9e^{-jΩ}+e^{-j2Ω})."
+        },
+        {
+          "part": "b",
+          "step": 4,
+          "text": "Let q=e^{-jΩ}. Factor denominator: 20-9q+q^2=20(1-q/4)(1-q/5)."
+        },
+        {
+          "part": "b",
+          "step": 5,
+          "text": "Partial fraction: H=2/(1-q/4)+3/(1-q/5)."
+        },
+        {
+          "part": "b",
+          "step": 6,
+          "text": "Use inverse DTFT a^n u[n] ↔ 1/(1-ae^{-jΩ})."
+        }
+      ],
+      "key_formulas": [
+        "Y=HX",
+        "H=Y/X",
+        "e^{-at}u(t)\\leftrightarrow \\frac1{a+j\\omega}",
+        "a^n u[n]\\leftrightarrow \\frac1{1-ae^{-j\\Omega}}",
+        "x[n-k]\\leftrightarrow e^{-j\\Omega k}X(e^{j\\Omega})"
+      ],
+      "tags": [
+        "LTI",
+        "frequency response",
+        "impulse response"
+      ]
+    },
+    {
+      "id": "q003",
+      "title": "FT using time shift, convolution, and differentiation",
+      "type": "fourier_properties",
+      "chapter": "3",
+      "sections": [
+        "3.10",
+        "3.11",
+        "3.12"
+      ],
+      "difficulty": "medium",
+      "prompt": "Use the properties of Fourier representation, e.g., time-differentiation, convolution, time-shift, frequency-shift, to find the FT of y(t)=d/dt{e^{-4t}u(t-5)*e^{-2t}u(t-3)}. Note: * denotes convolution.",
+      "latex": {
+        "main": "y(t)=\\frac{d}{dt}\\{e^{-4t}u(t-5)*e^{-2t}u(t-3)\\}"
+      },
+      "final_answer": {
+        "main": "Y(j\\omega)=\\frac{j\\omega e^{-26}e^{-j8\\omega}}{(4+j\\omega)(2+j\\omega)}"
+      },
+      "solution_steps": [
+        {
+          "step": 1,
+          "text": "Rewrite e^{-4t}u(t-5)=e^{-20}e^{-4(t-5)}u(t-5). Thus A(jω)=e^{-20}e^{-j5ω}/(4+jω)."
+        },
+        {
+          "step": 2,
+          "text": "Rewrite e^{-2t}u(t-3)=e^{-6}e^{-2(t-3)}u(t-3). Thus B(jω)=e^{-6}e^{-j3ω}/(2+jω)."
+        },
+        {
+          "step": 3,
+          "text": "Convolution in time becomes multiplication in frequency: A(jω)B(jω)=e^{-26}e^{-j8ω}/((4+jω)(2+jω))."
+        },
+        {
+          "step": 4,
+          "text": "The outer time derivative corresponds to multiplying by jω."
+        }
+      ],
+      "key_formulas": [
+        "e^{-at}u(t-t_0)\\leftrightarrow \\frac{e^{-at_0}e^{-j\\omega t_0}}{a+j\\omega}",
+        "x(t)*h(t)\\leftrightarrow X(j\\omega)H(j\\omega)",
+        "\\frac{d}{dt}x(t)\\leftrightarrow j\\omega X(j\\omega)"
+      ],
+      "tags": [
+        "time shift",
+        "convolution",
+        "differentiation"
+      ]
+    },
+    {
+      "id": "q004",
+      "title": "Find difference equation from frequency response",
+      "type": "difference_equation",
+      "chapter": "3",
+      "sections": [
+        "3.6",
+        "3.8"
+      ],
+      "difficulty": "easy",
+      "prompt": "Find the difference equation corresponding to the system with frequency response H(e^{jΩ})=(1+2e^{-j2Ω})/(3+2e^{-jΩ}-3e^{-j3Ω}).",
+      "latex": {
+        "main": "H(e^{j\\Omega})=\\frac{1+2e^{-j2\\Omega}}{3+2e^{-j\\Omega}-3e^{-j3\\Omega}}"
+      },
+      "final_answer": {
+        "main": "3y[n]+2y[n-1]-3y[n-3]=x[n]+2x[n-2]"
+      },
+      "solution_steps": [
+        {
+          "step": 1,
+          "text": "Use H=Y/X."
+        },
+        {
+          "step": 2,
+          "text": "(3+2e^{-jΩ}-3e^{-j3Ω})Y=(1+2e^{-j2Ω})X."
+        },
+        {
+          "step": 3,
+          "text": "Use e^{-jΩk}Y ↔ y[n-k] and e^{-jΩk}X ↔ x[n-k]."
+        },
+        {
+          "step": 4,
+          "text": "Convert each term to get 3y[n]+2y[n-1]-3y[n-3]=x[n]+2x[n-2]."
+        }
+      ],
+      "key_formulas": [
+        "H(e^{j\\Omega})=Y(e^{j\\Omega})/X(e^{j\\Omega})",
+        "e^{-j\\Omega k}Y(e^{j\\Omega})\\leftrightarrow y[n-k]"
+      ],
+      "tags": [
+        "DTFT",
+        "difference equation"
+      ]
+    },
+    {
+      "id": "q005",
+      "title": "FT using time differentiation and convolution",
+      "type": "fourier_properties",
+      "chapter": "3",
+      "sections": [
+        "3.10",
+        "3.11"
+      ],
+      "difficulty": "medium",
+      "prompt": "Use the time-differentiation and convolution properties to find the FT of y(t)=d/dt{te^{-3t}u(t)*e^{-2t}u(t)}, where * denotes convolution.",
+      "latex": {
+        "main": "y(t)=\\frac{d}{dt}\\{te^{-3t}u(t)*e^{-2t}u(t)\\}"
+      },
+      "final_answer": {
+        "main": "Y(j\\omega)=\\frac{j\\omega}{(3+j\\omega)^2(2+j\\omega)}"
+      },
+      "solution_steps": [
+        {
+          "step": 1,
+          "text": "Use te^{-3t}u(t) ↔ 1/(3+jω)^2."
+        },
+        {
+          "step": 2,
+          "text": "Use e^{-2t}u(t) ↔ 1/(2+jω)."
+        },
+        {
+          "step": 3,
+          "text": "Convolution becomes multiplication: bracket term ↔ 1/((3+jω)^2(2+jω))."
+        },
+        {
+          "step": 4,
+          "text": "Outer derivative gives multiplication by jω."
+        }
+      ],
+      "key_formulas": [
+        "te^{-at}u(t)\\leftrightarrow \\frac1{(a+j\\omega)^2}",
+        "e^{-at}u(t)\\leftrightarrow \\frac1{a+j\\omega}",
+        "x(t)*h(t)\\leftrightarrow XH",
+        "\\frac{d}{dt}x(t)\\leftrightarrow j\\omega X"
+      ],
+      "tags": [
+        "convolution",
+        "differentiation"
+      ]
+    },
+    {
+      "id": "q006",
+      "title": "Differential and difference equations from impulse responses",
+      "type": "system_equation",
+      "chapter": "3",
+      "sections": [
+        "3.6",
+        "3.7",
+        "3.11",
+        "3.13"
+      ],
+      "difficulty": "hard",
+      "prompt": "Determine the differential- or difference-equation descriptions for systems with impulse responses: (a) h(t)=2e^{-2t}u(t)-2te^{-2t}u(t). (b) h[n]=δ[n]+2(1/2)^n u[n]+(-1/2)^n u[n].",
+      "latex": {
+        "a": "h(t)=2e^{-2t}u(t)-2te^{-2t}u(t)",
+        "b": "h[n]=\\delta[n]+2(\\frac12)^n u[n]+(-\\frac12)^n u[n]"
+      },
+      "final_answer": {
+        "a": "\\frac{d^2y(t)}{dt^2}+4\\frac{dy(t)}{dt}+4y(t)=2\\frac{dx(t)}{dt}+2x(t)",
+        "b": "y[n]-\\frac14y[n-2]=4x[n]+\\frac12x[n-1]-\\frac14x[n-2]"
+      },
+      "solution_steps": [
+        {
+          "part": "a",
+          "step": 1,
+          "text": "Transform h(t): H=2/(2+jω)-2/(2+jω)^2."
+        },
+        {
+          "part": "a",
+          "step": 2,
+          "text": "Combine: H=(2+2jω)/(2+jω)^2."
+        },
+        {
+          "part": "a",
+          "step": 3,
+          "text": "Use H=Y/X, so (2+jω)^2Y=(2+2jω)X."
+        },
+        {
+          "part": "a",
+          "step": 4,
+          "text": "Expand (2+jω)^2=4+4jω+(jω)^2."
+        },
+        {
+          "part": "a",
+          "step": 5,
+          "text": "Convert jω to d/dt and (jω)^2 to d²/dt²."
+        },
+        {
+          "part": "b",
+          "step": 1,
+          "text": "Transform h[n]: H=1+2/(1-(1/2)e^{-jΩ})+1/(1+(1/2)e^{-jΩ})."
+        },
+        {
+          "part": "b",
+          "step": 2,
+          "text": "Let q=e^{-jΩ}. Common denominator is (1-q/2)(1+q/2)=1-q²/4."
+        },
+        {
+          "part": "b",
+          "step": 3,
+          "text": "Numerator: (1-q²/4)+2(1+q/2)+(1-q/2)=4+q/2-q²/4."
+        },
+        {
+          "part": "b",
+          "step": 4,
+          "text": "Thus H=(4+(1/2)q-(1/4)q²)/(1-(1/4)q²)."
+        },
+        {
+          "part": "b",
+          "step": 5,
+          "text": "Use H=Y/X and convert q^kY ↔ y[n-k], q^kX ↔ x[n-k]."
+        }
+      ],
+      "key_formulas": [
+        "H=Y/X",
+        "j\\omega Y\\leftrightarrow dy/dt",
+        "(j\\omega)^2Y\\leftrightarrow d^2y/dt^2",
+        "\\delta[n]\\leftrightarrow 1",
+        "a^n u[n]\\leftrightarrow \\frac1{1-ae^{-j\\Omega}}"
+      ],
+      "tags": [
+        "impulse response",
+        "differential equation",
+        "difference equation"
+      ]
+    },
+    {
+      "id": "q007",
+      "title": "First-order systems from impulse responses",
+      "type": "system_equation",
+      "chapter": "3",
+      "sections": [
+        "3.6",
+        "3.7",
+        "3.11"
+      ],
+      "difficulty": "easy",
+      "prompt": "Determine the differential- or difference-equation descriptions for systems with impulse responses: (a) h(t)=(1/a)e^{-t/a}u(t). (b) h[n]=α^n u[n], |α|<1.",
+      "latex": {
+        "a": "h(t)=\\frac1a e^{-t/a}u(t)",
+        "b": "h[n]=\\alpha^n u[n],\\quad |\\alpha|<1"
+      },
+      "final_answer": {
+        "a": "a\\frac{dy(t)}{dt}+y(t)=x(t)",
+        "b": "y[n]-\\alpha y[n-1]=x[n]"
+      },
+      "solution_steps": [
+        {
+          "part": "a",
+          "step": 1,
+          "text": "H(jω)=(1/a)/(1/a+jω)."
+        },
+        {
+          "part": "a",
+          "step": 2,
+          "text": "H=Y/X gives (1/a+jω)Y=(1/a)X."
+        },
+        {
+          "part": "a",
+          "step": 3,
+          "text": "Convert to time: dy/dt+(1/a)y=(1/a)x."
+        },
+        {
+          "part": "a",
+          "step": 4,
+          "text": "Multiply by a: a dy/dt+y=x."
+        },
+        {
+          "part": "b",
+          "step": 1,
+          "text": "H(e^{jΩ})=1/(1-αe^{-jΩ})."
+        },
+        {
+          "part": "b",
+          "step": 2,
+          "text": "H=Y/X gives (1-αe^{-jΩ})Y=X."
+        },
+        {
+          "part": "b",
+          "step": 3,
+          "text": "Convert to time: y[n]-αy[n-1]=x[n]."
+        }
+      ],
+      "key_formulas": [
+        "e^{-bt}u(t)\\leftrightarrow \\frac1{b+j\\omega}",
+        "a^n u[n]\\leftrightarrow \\frac1{1-ae^{-j\\Omega}}",
+        "H=Y/X"
+      ],
+      "tags": [
+        "first order",
+        "impulse response"
+      ]
+    },
+    {
+      "id": "q008",
+      "title": "Fourier transform of cosine",
+      "type": "fourier_transform",
+      "chapter": "3",
+      "sections": [
+        "3.5",
+        "3.7"
+      ],
+      "difficulty": "easy",
+      "prompt": "Find the Fourier transform FT of x(t)=cos(ω0t).",
+      "latex": {
+        "main": "x(t)=\\cos(\\omega_0t)"
+      },
+      "final_answer": {
+        "main": "X(j\\omega)=\\pi\\delta(\\omega-\\omega_0)+\\pi\\delta(\\omega+\\omega_0)"
+      },
+      "solution_steps": [
+        {
+          "step": 1,
+          "text": "Use Euler formula: cos(ω0t)=(e^{jω0t}+e^{-jω0t})/2."
+        },
+        {
+          "step": 2,
+          "text": "Use e^{jω0t} ↔ 2πδ(ω-ω0) and e^{-jω0t} ↔ 2πδ(ω+ω0)."
+        },
+        {
+          "step": 3,
+          "text": "Apply linearity: X=(1/2)[2πδ(ω-ω0)+2πδ(ω+ω0)]."
+        },
+        {
+          "step": 4,
+          "text": "Therefore X=πδ(ω-ω0)+πδ(ω+ω0)."
+        },
+        {
+          "step": 5,
+          "text": "Equivalent integral route: ∫cos(ω0t)e^{-jωt}dt=(1/2)[∫e^{-j(ω-ω0)t}dt+∫e^{-j(ω+ω0)t}dt], and ∫e^{-jat}dt=2πδ(a)."
+        }
+      ],
+      "key_formulas": [
+        "\\cos(\\omega_0t)=\\frac{e^{j\\omega_0t}+e^{-j\\omega_0t}}2",
+        "e^{j\\omega_0t}\\leftrightarrow 2\\pi\\delta(\\omega-\\omega_0)",
+        "\\int_{-\\infty}^{\\infty}e^{-jat}dt=2\\pi\\delta(a)"
+      ],
+      "tags": [
+        "cosine",
+        "delta"
+      ]
+    },
+    {
+      "id": "q009",
+      "title": "Frequency shift of complex sinusoidal pulse",
+      "type": "frequency_shift",
+      "chapter": "3",
+      "sections": [
+        "3.12"
+      ],
+      "difficulty": "easy",
+      "prompt": "Use the frequency-shift property to determine the FT of z(t)=e^{j10t} for |t|<π, and 0 for |t|>π.",
+      "latex": {
+        "main": "z(t)=\\begin{cases}e^{j10t},& |t|<\\pi\\\\0,& |t|>\\pi\\end{cases}"
+      },
+      "final_answer": {
+        "main": "Z(j\\omega)=\\frac{2\\sin((\\omega-10)\\pi)}{\\omega-10}"
+      },
+      "solution_steps": [
+        {
+          "step": 1,
+          "text": "Define x(t)=1 for |t|<π, 0 otherwise."
+        },
+        {
+          "step": 2,
+          "text": "Compute or use the rectangular pulse transform: X(jω)=∫_{-π}^{π}e^{-jωt}dt=2sin(πω)/ω."
+        },
+        {
+          "step": 3,
+          "text": "The signal is z(t)=e^{j10t}x(t)."
+        },
+        {
+          "step": 4,
+          "text": "Frequency shift: e^{jω0t}x(t) ↔ X(j(ω-ω0))."
+        },
+        {
+          "step": 5,
+          "text": "Set ω0=10 to get Z(jω)=X(j(ω-10))=2sin((ω-10)π)/(ω-10)."
+        }
+      ],
+      "key_formulas": [
+        "\\int_{-T}^{T}e^{-j\\omega t}dt=\\frac{2\\sin(\\omega T)}{\\omega}",
+        "e^{j\\omega_0t}x(t)\\leftrightarrow X(j(\\omega-\\omega_0))"
+      ],
+      "tags": [
+        "rectangular pulse",
+        "frequency shift"
+      ]
+    },
+    {
+      "id": "q010",
+      "title": "LTI response and proof of convolution property",
+      "type": "proof",
+      "chapter": "3",
+      "sections": [
+        "3.7",
+        "3.10"
+      ],
+      "difficulty": "medium",
+      "prompt": "(a) The output of an LTI system in response to x(t)=e^{-2t}u(t) is y(t)=e^{-t}u(t). Find the frequency response and the impulse response.\n(b) Prove that y(t)=h(t)*x(t) ↔ Y(jω)=H(jω)X(jω).",
+      "latex": {
+        "a": "x(t)=e^{-2t}u(t),\\quad y(t)=e^{-t}u(t)",
+        "b": "y(t)=h(t)*x(t)\\overset{FT}{\\Longleftrightarrow}Y(j\\omega)=H(j\\omega)X(j\\omega)"
+      },
+      "final_answer": {
+        "a": "H(j\\omega)=\\frac{j\\omega+2}{j\\omega+1},\\quad h(t)=\\delta(t)+e^{-t}u(t)",
+        "b": "Y(j\\omega)=H(j\\omega)X(j\\omega)"
+      },
+      "solution_steps": [
+        {
+          "part": "a",
+          "step": 1,
+          "text": "X=1/(jω+2), Y=1/(jω+1)."
+        },
+        {
+          "part": "a",
+          "step": 2,
+          "text": "H=Y/X=(jω+2)/(jω+1)."
+        },
+        {
+          "part": "a",
+          "step": 3,
+          "text": "H=1+1/(jω+1), so h(t)=δ(t)+e^{-t}u(t)."
+        },
+        {
+          "part": "b",
+          "step": 1,
+          "text": "Start with convolution definition: y(t)=∫_{-∞}^{∞}h(ν)x(t-ν)dν."
+        },
+        {
+          "part": "b",
+          "step": 2,
+          "text": "Use inverse FT: x(t-ν)=(1/2π)∫_{-∞}^{∞}X(jω)e^{jω(t-ν)}dω."
+        },
+        {
+          "part": "b",
+          "step": 3,
+          "text": "Substitute into y(t): y(t)=∫h(ν)[(1/2π)∫X(jω)e^{jω(t-ν)}dω]dν."
+        },
+        {
+          "part": "b",
+          "step": 4,
+          "text": "Separate the exponential: e^{jω(t-ν)}=e^{jωt}e^{-jων}."
+        },
+        {
+          "part": "b",
+          "step": 5,
+          "text": "Rearrange: y(t)=(1/2π)∫X(jω)e^{jωt}[∫h(ν)e^{-jων}dν]dω."
+        },
+        {
+          "part": "b",
+          "step": 6,
+          "text": "The inner integral is H(jω). Thus y(t)=(1/2π)∫H(jω)X(jω)e^{jωt}dω."
+        },
+        {
+          "part": "b",
+          "step": 7,
+          "text": "Compare with inverse FT y(t)=(1/2π)∫Y(jω)e^{jωt}dω, so Y(jω)=H(jω)X(jω)."
+        }
+      ],
+      "key_formulas": [
+        "Y=HX",
+        "e^{-at}u(t)\\leftrightarrow \\frac1{a+j\\omega}",
+        "h*x\\leftrightarrow HX",
+        "x(t)=\\frac1{2\\pi}\\int X(j\\omega)e^{j\\omega t}d\\omega"
+      ],
+      "tags": [
+        "proof",
+        "convolution",
+        "LTI"
+      ]
+    },
+    {
+      "id": "q011",
+      "title": "Frequency and impulse response from DT difference equation",
+      "type": "system_response",
+      "chapter": "3",
+      "sections": [
+        "3.6",
+        "3.13"
+      ],
+      "difficulty": "medium",
+      "prompt": "Find the frequency response and the impulse response of the discrete-time system described by 6y[n]+5y[n-1]+y[n-2]=18x[n]+8x[n-1].",
+      "latex": {
+        "main": "6y[n]+5y[n-1]+y[n-2]=18x[n]+8x[n-1]"
+      },
+      "final_answer": {
+        "main": "H(e^{j\\Omega})=\\frac{18+8e^{-j\\Omega}}{6+5e^{-j\\Omega}+e^{-j2\\Omega}}=\\frac{2}{1+\\frac13e^{-j\\Omega}}+\\frac{1}{1+\\frac12e^{-j\\Omega}},\\quad h[n]=2(-\\frac13)^nu[n]+(-\\frac12)^nu[n]"
+      },
+      "solution_steps": [
+        {
+          "step": 1,
+          "text": "Apply DTFT delay property to get (6+5e^{-jΩ}+e^{-j2Ω})Y=(18+8e^{-jΩ})X."
+        },
+        {
+          "step": 2,
+          "text": "Therefore H=(18+8e^{-jΩ})/(6+5e^{-jΩ}+e^{-j2Ω})."
+        },
+        {
+          "step": 3,
+          "text": "Let q=e^{-jΩ}. Divide by 6: H=(3+(4/3)q)/(1+(5/6)q+(1/6)q²)."
+        },
+        {
+          "step": 4,
+          "text": "Factor denominator: 1+(5/6)q+(1/6)q²=(1+q/3)(1+q/2)."
+        },
+        {
+          "step": 5,
+          "text": "Partial fraction: H=A/(1+q/3)+B/(1+q/2). Comparing coefficients gives A=2, B=1."
+        },
+        {
+          "step": 6,
+          "text": "Convert each term with 1/(1-ae^{-jΩ}) ↔ a^n u[n]. Since 1+q/3=1-(-1/3)q and 1+q/2=1-(-1/2)q."
+        }
+      ],
+      "key_formulas": [
+        "x[n-k]\\leftrightarrow e^{-j\\Omega k}X(e^{j\\Omega})",
+        "H=Y/X",
+        "a^n u[n]\\leftrightarrow \\frac1{1-ae^{-j\\Omega}}"
+      ],
+      "tags": [
+        "DTFT",
+        "partial fractions"
+      ]
+    },
+    {
+      "id": "q012",
+      "title": "Uncertainty principle and effective bandwidth of convolution",
+      "type": "time_bandwidth",
+      "chapter": "3",
+      "sections": [
+        "3.10",
+        "3.17"
+      ],
+      "difficulty": "hard",
+      "prompt": "Let x(t)=1 for |t|<T and 0 otherwise. Use the uncertainty principle to bound the effective bandwidth of x(t)*x(t), where * denotes convolution.",
+      "latex": {
+        "main": "x(t)=\\begin{cases}1,& |t|<T\\\\0,& \\text{otherwise}\\end{cases},\\quad \\text{bound the effective bandwidth of }x(t)*x(t)"
+      },
+      "final_answer": {
+        "main": "B_\\omega\\ge \\frac{\\sqrt{10}}{4T}\\quad \\text{for }y(t)=x(t)*x(t)\\text{ using }T_d=\\sqrt{\\frac25}T"
+      },
+      "solution_steps": [
+        {
+          "step": 1,
+          "text": "The convolution of two width-2T rectangular pulses is a triangle: y(t)=x(t)*x(t)=2T-|t| for |t|<2T, and 0 otherwise."
+        },
+        {
+          "step": 2,
+          "text": "Use effective duration T_d=[∫t²|y(t)|²dt / ∫|y(t)|²dt]^{1/2}."
+        },
+        {
+          "step": 3,
+          "text": "Because y(t) is even, denominator D=2∫_0^{2T}(2T-t)^2dt=16T^3/3."
+        },
+        {
+          "step": 4,
+          "text": "Numerator N=2∫_0^{2T}t^2(2T-t)^2dt=32T^5/15."
+        },
+        {
+          "step": 5,
+          "text": "Thus T_d^2=N/D=(32T^5/15)/(16T^3/3)=2T^2/5, so T_d=√(2/5)T."
+        },
+        {
+          "step": 6,
+          "text": "Uncertainty principle: T_dB_ω≥1/2, hence B_ω≥1/(2T_d)=√10/(4T)."
+        }
+      ],
+      "key_formulas": [
+        "T_d=\\left(\\frac{\\int t^2|x(t)|^2dt}{\\int |x(t)|^2dt}\\right)^{1/2}",
+        "T_dB_\\omega\\ge \\frac12",
+        "\\text{rect}*\\text{rect}=\\text{triangle}"
+      ],
+      "tags": [
+        "uncertainty principle",
+        "effective bandwidth",
+        "convolution"
+      ]
+    },
+    {
+      "id": "q013",
+      "title": "Inverse FTs",
+      "type": "inverse_transform",
+      "chapter": "3",
+      "sections": [
+        "3.7",
+        "3.12",
+        "3.13",
+        "3.15"
+      ],
+      "difficulty": "hard",
+      "prompt": "Find the inverse FTs of the following signals: (a) X(jω)=jω/(1+jω)^2. (b) X(jω)=4sin(2ω-4)/(2ω-4)-4sin(2ω+4)/(2ω+4).",
+      "latex": {
+        "a": "X(j\\omega)=\\frac{j\\omega}{(1+j\\omega)^2}",
+        "b": "X(j\\omega)=\\frac{4\\sin(2\\omega-4)}{2\\omega-4}-\\frac{4\\sin(2\\omega+4)}{2\\omega+4}"
+      },
+      "final_answer": {
+        "a": "x(t)=(1-t)e^{-t}u(t)",
+        "b": "x(t)=2j\\sin(2t)\\operatorname{rect}(t/2)=2j\\sin(2t)[u(t+2)-u(t-2)]"
+      },
+      "solution_steps": [
+        {
+          "part": "a",
+          "step": 1,
+          "text": "Rewrite jω=(1+jω)-1."
+        },
+        {
+          "part": "a",
+          "step": 2,
+          "text": "Then X=1/(1+jω)-1/(1+jω)^2."
+        },
+        {
+          "part": "a",
+          "step": 3,
+          "text": "Use 1/(1+jω) ↔ e^{-t}u(t), and 1/(1+jω)^2 ↔ te^{-t}u(t)."
+        },
+        {
+          "part": "a",
+          "step": 4,
+          "text": "So x(t)=e^{-t}u(t)-te^{-t}u(t)=(1-t)e^{-t}u(t)."
+        },
+        {
+          "part": "b",
+          "step": 1,
+          "text": "Let s(t)=rect(t), with rect(t)=1 for |t|<1 and 0 otherwise. Then S(jω)=2sinω/ω."
+        },
+        {
+          "part": "b",
+          "step": 2,
+          "text": "Rewrite the given X as X=2S(j[2(ω-2)])-2S(j[2(ω+2)])."
+        },
+        {
+          "part": "b",
+          "step": 3,
+          "text": "Scaling: S(j2ω) ↔ (1/2)s(t/2), so 2S(j2ω) ↔ s(t/2)."
+        },
+        {
+          "part": "b",
+          "step": 4,
+          "text": "Frequency shift: 2S(j[2(ω-2)]) ↔ e^{j2t}s(t/2); 2S(j[2(ω+2)]) ↔ e^{-j2t}s(t/2)."
+        },
+        {
+          "part": "b",
+          "step": 5,
+          "text": "Subtract: x(t)=(e^{j2t}-e^{-j2t})s(t/2)=2j sin(2t)s(t/2)."
+        },
+        {
+          "part": "b",
+          "step": 6,
+          "text": "Since s(t/2)=rect(t/2)=u(t+2)-u(t-2), the answer follows."
+        }
+      ],
+      "key_formulas": [
+        "e^{-t}u(t)\\leftrightarrow \\frac1{1+j\\omega}",
+        "te^{-t}u(t)\\leftrightarrow \\frac1{(1+j\\omega)^2}",
+        "\\operatorname{rect}(t)\\leftrightarrow \\frac{2\\sin\\omega}{\\omega}",
+        "S(ja\\omega)\\leftrightarrow \\frac1{|a|}s(t/a)",
+        "X(j(\\omega-\\omega_0))\\leftrightarrow e^{j\\omega_0t}x(t)"
+      ],
+      "tags": [
+        "inverse FT",
+        "rect",
+        "frequency shift"
+      ]
+    }
+  ]
+}
