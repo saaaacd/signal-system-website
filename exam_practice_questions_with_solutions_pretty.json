@@ -35,7 +35,7 @@
         "3.15"
       ],
       "difficulty": "hard",
-      "prompt": "(a) Using multiple properties to find an Inverse FT. Find x(t) if X(jω)=j d/dω { e^{j2ω}/(1+j(ω/3)) }.\n(b) Find the inverse DTFT of X(e^{jΩ})=(-5/6 e^{-jΩ}+5)/(1+1/6 e^{-jΩ}-1/6 e^{-j2Ω}).",
+      "prompt": "(a) Using multiple properties to find an Inverse FT. Find x(t) if X(jω)=j d/dω { e^{j2ω}/(1+j(ω/3)) }.\\n(b) Find the inverse DTFT of X(e^{jΩ})=(-5/6 e^{-jΩ}+5)/(1+1/6 e^{-jΩ}-1/6 e^{-j2Ω}).",
       "latex": {
         "a": "X(j\\omega)=j\\frac{d}{d\\omega}\\left\\{\\frac{e^{j2\\omega}}{1+j(\\omega/3)}\\right\\}",
         "b": "X(e^{j\\Omega})=\\frac{-\\frac56 e^{-j\\Omega}+5}{1+\\frac16 e^{-j\\Omega}-\\frac16 e^{-j2\\Omega}}"
@@ -128,7 +128,7 @@
         "3.13"
       ],
       "difficulty": "medium",
-      "prompt": "(a) The output of an LTI system in response to x(t)=e^{-2t}u(t) is y(t)=e^{-t}u(t). Find the frequency response and impulse response.\n(b) Find the frequency response and impulse response of the discrete-time system 20y[n]-9y[n-1]+y[n-2]=100x[n]-23x[n-1].",
+      "prompt": "(a) The output of an LTI system in response to x(t)=e^{-2t}u(t) is y(t)=e^{-t}u(t). Find the frequency response and impulse response.\\n(b) Find the frequency response and impulse response of the discrete-time system 20y[n]-9y[n-1]+y[n-2]=100x[n]-23x[n-1].",
       "latex": {
         "a": "x(t)=e^{-2t}u(t),\\quad y(t)=e^{-t}u(t)",
         "b": "20y[n]-9y[n-1]+y[n-2]=100x[n]-23x[n-1]"
@@ -598,7 +598,7 @@
         "3.10"
       ],
       "difficulty": "medium",
-      "prompt": "(a) The output of an LTI system in response to x(t)=e^{-2t}u(t) is y(t)=e^{-t}u(t). Find the frequency response and the impulse response.\n(b) Prove that y(t)=h(t)*x(t) ↔ Y(jω)=H(jω)X(jω).",
+      "prompt": "(a) The output of an LTI system in response to x(t)=e^{-2t}u(t) is y(t)=e^{-t}u(t). Find the frequency response and the impulse response.\\n(b) Prove that y(t)=h(t)*x(t) ↔ Y(jω)=H(jω)X(jω).",
       "latex": {
         "a": "x(t)=e^{-2t}u(t),\\quad y(t)=e^{-t}u(t)",
         "b": "y(t)=h(t)*x(t)\\overset{FT}{\\Longleftrightarrow}Y(j\\omega)=H(j\\omega)X(j\\omega)"
@@ -739,16 +739,16 @@
         "main": "x(t)=\\begin{cases}1,& |t|<T\\\\0,& \\text{otherwise}\\end{cases},\\quad \\text{bound the effective bandwidth of }x(t)*x(t)"
       },
       "final_answer": {
-        "main": "T_d=\frac{T}{\\sqrt{3}},\\quad B_\\omega\\ge \frac{\\sqrt{3}}{2T}"
+        "main": "T_d=\\frac{T}{\\sqrt{3}},\\quad B_\\omega\\ge \\frac{\\sqrt{3}}{2T}"
       },
       "solution_steps": [
         {
           "step": 1,
-          "text": "Use the effective duration definition for the given rectangular signal x(t): T_d=\\left(\frac{\\int_{-\\infty}^{\\infty}t^2|x(t)|^2dt}{\\int_{-\\infty}^{\\infty}|x(t)|^2dt}\right)^{1/2}."
+          "text": "Use the effective duration definition for the given rectangular signal x(t): T_d=\\left(\\frac{\\int_{-\\infty}^{\\infty}t^2|x(t)|^2dt}{\\int_{-\\infty}^{\\infty}|x(t)|^2dt}\\right)^{1/2}."
         },
         {
           "step": 2,
-          "text": "Since x(t)=1 for |t|<T and 0 otherwise, |x(t)|^2=1 only on -T<t<T. Therefore T_d=\\left(\frac{\\int_{-T}^{T}t^2dt}{\\int_{-T}^{T}dt}\right)^{1/2}."
+          "text": "Since x(t)=1 for |t|<T and 0 otherwise, |x(t)|^2=1 only on -T<t<T. Therefore T_d=\\left(\\frac{\\int_{-T}^{T}t^2dt}{\\int_{-T}^{T}dt}\\right)^{1/2}."
         },
         {
           "step": 3,
@@ -756,19 +756,19 @@
         },
         {
           "step": 4,
-          "text": "Compute the numerator: \\int_{-T}^{T}t^2dt=\\left[\frac{t^3}{3}\right]_{-T}^{T}=\frac{T^3}{3}-\frac{(-T)^3}{3}=\frac{2T^3}{3}."
+          "text": "Compute the numerator: \\int_{-T}^{T}t^2dt=\\left[\\frac{t^3}{3}\\right]_{-T}^{T}=\\frac{T^3}{3}-\\frac{(-T)^3}{3}=\\frac{2T^3}{3}."
         },
         {
           "step": 5,
-          "text": "Thus T_d=\\left(\frac{\frac{2T^3}{3}}{2T}\right)^{1/2}=\\left(\frac{T^2}{3}\right)^{1/2}=\frac{T}{\\sqrt{3}}."
+          "text": "Thus T_d=\\left(\\frac{\\frac{2T^3}{3}}{2T}\\right)^{1/2}=\\left(\\frac{T^2}{3}\\right)^{1/2}=\\frac{T}{\\sqrt{3}}."
         },
         {
           "step": 6,
-          "text": "Use the uncertainty principle: T_dB_\\omega\\ge \frac12."
+          "text": "Use the uncertainty principle: T_dB_\\omega\\ge \\frac12."
         },
         {
           "step": 7,
-          "text": "Therefore B_\\omega\\ge \frac{1}{2T_d}=\frac{1}{2(T/\\sqrt3)}=\frac{\\sqrt3}{2T}."
+          "text": "Therefore B_\\omega\\ge \\frac{1}{2T_d}=\\frac{1}{2(T/\\sqrt3)}=\\frac{\\sqrt3}{2T}."
         },
         {
           "step": 8,
@@ -776,9 +776,9 @@
         }
       ],
       "key_formulas": [
-        "T_d=\\left(\frac{\\int_{-\\infty}^{\\infty} t^2|x(t)|^2dt}{\\int_{-\\infty}^{\\infty}|x(t)|^2dt}\right)^{1/2}",
-        "T_dB_\\omega\\ge \frac12",
-        "B_\\omega\\ge \frac{1}{2T_d}"
+        "T_d=\\left(\\frac{\\int_{-\\infty}^{\\infty} t^2|x(t)|^2dt}{\\int_{-\\infty}^{\\infty}|x(t)|^2dt}\\right)^{1/2}",
+        "T_dB_\\omega\\ge \\frac12",
+        "B_\\omega\\ge \\frac{1}{2T_d}"
       ],
       "tags": [
         "uncertainty principle",
