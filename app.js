@@ -23,7 +23,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 // ---- Load Questions ----
 async function loadQuestions() {
   try {
-    const res = await fetch('exam_practice_questions_with_solutions_pretty.json');
+    const res = await fetch('exam_practice_questions_with_solutions_updated_v2_pretty.json');
     const data = await res.json();
     // Adapt to the data structure — questions are in data.questions
     questions = data.questions || data;
